@@ -21,3 +21,39 @@ for (let i = 0; i < projets.length; i++) {
     projetElement.appendChild(titleElement);
 }
 
+// gestion des bouttons 
+const boutonObjets = document.querySelector(".btn-obj");
+
+boutonObjets.addEventListener("click", function() {
+    const projetsObjets = projets.filter(function (projet) {
+        return projet.categoryId === 1;
+    });
+    console.log(projetsObjets)
+});
+
+const boutonAppart = document.querySelector(".btn-appart");
+
+boutonAppart.addEventListener("click", function() {
+    const projetsAppart = projets.filter(function (projet) {
+        return projet.categoryId === 2;
+    });
+    console.log(projetsAppart)
+});
+
+const boutonHotelResto = document.querySelector(".btn-resto");
+
+boutonHotelResto.addEventListener("click", function() {
+    const projetsHotelResto = projets.filter(function (projet) {
+        return projet.categoryId === 3;
+    });
+    console.log(projetsHotelResto)
+});
+
+const boutonTous = document.querySelector(".btn-tous");
+
+boutonTous.addEventListener("click", function() {
+    const projetsTous = projets.filter(function (projet) {
+        return projet.categoryId >= 1;
+    });
+    console.log(projetsTous)
+});
