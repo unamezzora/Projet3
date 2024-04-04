@@ -1,6 +1,10 @@
 // Récupération des projets depuis API
-const reponse = await fetch("http://localhost:5678/api/works");
-const projets = await reponse.json();
+const works = await fetch("http://localhost:5678/api/works");
+const projets = await works.json();
+
+const categories = await fetch("http://localhost:5678/api/categories");
+const btnFiltres = await categories.json();
+
 
 function genererProjets(projets){
     for (let i = 0; i < projets.length; i++) {
@@ -11,10 +15,10 @@ function genererProjets(projets){
         const projetElement = document.createElement("figure");
         // Création des balises 
         const imageElement = document.createElement("img");
-        imageElement.src = projets[i].imageUrl;
-        imageElement.alt = projets[i].title;
+        imageElement.src = travaux.imageUrl;
+        imageElement.alt = travaux.title;
         const titleElement = document.createElement("figcaption");
-        titleElement.innerText = projets[i].title;
+        titleElement.innerText = travaux.title;
 
         //Rattachement des balises au portfolio
         sectionPortfolio.appendChild(projetElement);
@@ -26,48 +30,36 @@ function genererProjets(projets){
 // Premier affichage de la page
 genererProjets(projets);
 
+// gestion des boutons 
 
-// gestion des bouttons 
-const boutonObjets = document.querySelector(".btn-obj");
+// Récupération de l'élément du DOM qui accueillera les boutons
+const sectionPortfolioFiltres = document.querySelector(".filtres");
+const btnTousElement = document.createElement("button");
 
-boutonObjets.addEventListener("click", function() {
-    const projetsObjets = projets.filter(function (projet) {
-        return projet.categoryId === 1;
-    });
-    // Effacement de l'ecran et regénération de la page avec les projets filtrées uniquement
+//Rattachement des balises au portfolio
+sectionPortfolioFiltres.appendChild(btnTousElement);
+btnTousElement.innerText = "Tous";
+
+btnTousElement.addEventListener("click", function() {
     document.querySelector(".gallery").innerHTML = "";
-    genererProjets(projetsObjets);
+    genererProjets(projets);
 });
 
-const boutonAppart = document.querySelector(".btn-appart");
+for (let i = 0; i < btnFiltres.length; i++) {
+    const btnCat = btnFiltres[i];
+   
+    // Création d’une balise dédiée à un bouton
+    const btnElement = document.createElement("button");
+    btnElement.innerText = btnCat.name;
 
-boutonAppart.addEventListener("click", function() {
-    const projetsAppart = projets.filter(function (projet) {
-        return projet.categoryId === 2;
-    });
-     // Effacement de l'ecran et regénération de la page avec les projets filtrées uniquement
-     document.querySelector(".gallery").innerHTML = "";
-     genererProjets(projetsAppart);
-});
+    //Rattachement des balises au portfolio
+    sectionPortfolioFiltres.appendChild(btnElement);
 
-const boutonHotelResto = document.querySelector(".btn-resto");
-
-boutonHotelResto.addEventListener("click", function() {
-    const projetsHotelResto = projets.filter(function (projet) {
-        return projet.categoryId === 3;
-    });
-     // Effacement de l'ecran et regénération de la page avec les projets filtrées uniquement
-     document.querySelector(".gallery").innerHTML = "";
-     genererProjets(projetsHotelResto);
-});
-
-const boutonTous = document.querySelector(".btn-tous");
-
-boutonTous.addEventListener("click", function() {
-    const projetsTous = projets.filter(function (projet) {
-        return projet.categoryId >= 1;
-    });
-     // Effacement de l'ecran et regénération de la page avec les projets filtrées uniquement
-     document.querySelector(".gallery").innerHTML = "";
-     genererProjets(projetsTous);
-});
+    btnElement.addEventListener("click", function() {
+        const projetsFiltres = projets.filter(function (projet) {
+            return projet.categoryId === i+1;
+        })
+        document.querySelector(".gallery").innerHTML ="";
+        genererProjets(projetsFiltres);
+    })
+}
