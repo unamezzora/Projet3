@@ -34,6 +34,13 @@ body {
 ol, ul {
 	list-style: none;
 }
+li a {
+	text-decoration: none;
+}
+.pageMenu {
+	font-weight: bold;
+}
+	
 blockquote, q {
 	quotes: none;
 }
@@ -139,7 +146,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -207,4 +214,12 @@ footer nav ul {
 .filtres button:hover {
 	color: white;
 	background-color: #1D6154;
+}
+
+#contact a {
+	color: black;
+}
+
+.btnConnecter:hover {
+	background-color: #0E2F28;
 }
