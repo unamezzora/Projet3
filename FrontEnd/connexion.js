@@ -41,7 +41,7 @@ function ajoutListenerLogin() {
             }else{
                 throw new Error('Utilisateur/mot de passe ne sont pas correctes');
             }
-        }).then((data) => {window.localStorage.setItem("token", data.token)
+        }).then((data) => {window.localStorage.setItem("token", data.token);
             window.location.href = "index.html"
         }).catch((erreur) => 
             afficherMessageErreur(erreur.message));
