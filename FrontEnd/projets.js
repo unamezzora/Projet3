@@ -17,50 +17,70 @@ function genererProjets(projets){
         const imageElement = document.createElement("img");
         imageElement.src = travaux.imageUrl;
         imageElement.alt = travaux.title;
-
-        //Creation des photos de la fenetre modal
-        const photoModal = document.createElement("img");
-        photoModal.src = travaux.imageUrl;
-        const sectionGalleryModal = document.querySelector(".galleryModal");
-        
-
-
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = travaux.title;
+
+        //Creation des photos de la fenetre modal
+        const sectionGalleryModal = document.querySelector(".galleryModal");
+        const projetModal = document.createElement("div");
+        const photoModal = document.createElement("img");
+        photoModal.src = travaux.imageUrl;
+        const btnSupprimerProjet = document.createElement("button");
+        const iconSupprimerProjet = document.createElement("i");
+        iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
+       
+        //<i class="fa-solid fa-trash-can"></i>
+        
 
         //Rattachement des balises au portfolio
         sectionPortfolio.appendChild(projetElement);
         projetElement.appendChild(imageElement);
         projetElement.appendChild(titleElement);
-        sectionGalleryModal.appendChild(photoModal);
+        sectionGalleryModal.appendChild(projetModal);
+        projetModal.appendChild(photoModal);
+        projetModal.appendChild(btnSupprimerProjet);
+        btnSupprimerProjet.appendChild(iconSupprimerProjet);
 
     } 
 }
 
-
-
-
 // Premier affichage de la page
 genererProjets(projets);
 
-//Ouvrir la fenetre modal
-const openModal = function (e) {
-    e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute("href"))
-    target.style.display = null
-    target.removeAttribute("aria-hidden")
-    target.setAttribute("aria-modal", "true")
+//Ouvrir/fermer la fenetre modal
+let modal = null
+
+const ouvrirModal = function (e) {
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute("href"));
+    target.style.display = null;
+    target.removeAttribute("aria-hidden");
+    target.setAttribute("aria-modal", "true");
+    modal = target;
+    modal.addEventListener("click", fermerModal);
+    modal.querySelector(".btnfermerModal").addEventListener("click", fermerModal);
+    modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
+}
+
+const fermerModal = function (e) {
+    if (modal === null) return;
+    e.preventDefault();
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    modal.removeAttribute("aria-modal");
+    modal.removeEventListener("click", fermerModal);
+    modal.querySelector(".btnfermerModal").removeEventListener("click", fermerModal);
+    modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
+    modal = null;
+    
+}
+
+const stopPropagation = function (e) {
+    e.stopPropagation()
 }
 
 const btnModifier = document.querySelector(".modifierProjets");
-btnModifier.addEventListener("click", openModal);
-
-
-
-/*function() {
-    genererGalerieModal(projets);
-}
-*/
+btnModifier.addEventListener("click", ouvrirModal);
 
 
 // gestion des boutons 
