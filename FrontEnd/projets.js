@@ -55,8 +55,13 @@ const ouvrirModal = function (e) {
     target.setAttribute("aria-modal", "true");
     modal = target;
     modal.addEventListener("click", fermerModal);
-    modal.querySelector(".btnfermerModal").addEventListener("click", fermerModal);
-    modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
+    modal.querySelectorAll(".btnfermerModal").forEach(a => {
+        a.addEventListener("click", fermerModal);
+    });
+    modal.querySelectorAll(".modalStop").forEach(a => {
+        a.addEventListener("click", stopPropagation);
+    });
+    //modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
 }
 
 const fermerModal = function (e) {
@@ -66,8 +71,13 @@ const fermerModal = function (e) {
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
     modal.removeEventListener("click", fermerModal);
-    modal.querySelector(".btnfermerModal").removeEventListener("click", fermerModal);
-    modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
+    modal.querySelectorAll(".btnfermerModal").forEach(a => {
+        a.removeEventListener("click", fermerModal);
+    });
+    modal.querySelectorAll(".modalStop").forEach(a => {
+        a.removeEventListener("click", stopPropagation);
+    });
+    //modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
     modal = null;
     document.querySelector(".modalAjout").style.display = "none";
     document.querySelector(".modalMedias").style.display = "flex";
@@ -89,6 +99,10 @@ document.querySelector(".btnAjoutPhoto").addEventListener("click", function (e) 
     document.querySelector(".modalAjout").addEventListener("click", stopPropagation);
 })
 
+document.querySelector(".btnRetournModal").addEventListener("click", function() {
+    document.querySelector(".modalAjout").style.display = "none";
+    document.querySelector(".modalMedias").style.display = "flex";
+} )
 
 // gestion des boutons 
 
