@@ -97,18 +97,21 @@
 		<h3 id="titleModalPhoto">Ajout photo</h3>
 		<div class="chargementPhoto">
 			<i class="fa-regular fa-image"></i>
-			<button class="btnChargementPhoto">+ Ajouter photo</button>
+			<button type="button" class="btnChargementPhoto">+ Ajouter photo</button>
 			<p>jpg, png : 4mo max</p>
 		</div>
 		<form action="#" method="post">
-			<label for="titre">Titre</label><br>
-			<input type="text" name="titre" id="titre"><br>
-			<label for="categorie">Catégorie</label><br>
-			<select name="categorie" id="categorie">
-				<option value="1">Objets</option>
-				<option value="2">Appartements</option>
-				<option value="3">Hotels & restaurants</option>
-			</select><br>
+			<div class="formAjoutPhoto">
+				<label for="titre">Titre</label><br>
+				<input type="text" name="titre" id="titre"><br>
+				<label for="categorie">Catégorie</label><br>
+				<select name="categorie" id="categorie">
+					<!--<option value="1">Objets</option>
+					<option value="2">Appartements</option>
+					<option value="3">Hotels & restaurants</option>-->
+				</select><br>
+			</div>
+			
 			<input type="submit" value="Valider">
 		</form>
 		<div class="">

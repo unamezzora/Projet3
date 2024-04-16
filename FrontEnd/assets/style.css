@@ -382,20 +382,21 @@ h3{
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	overflow: auto;
+	/*overflow: auto;*/
 	width: 630px;
 	height: 670px;
 	border-radius: 10px;
 	background-color: #FFFFFF;
 	padding: 25px;
 }
-
 .bntsModalAjout{
+	width: 100%;
 	display: flex;
-	flex-direction: row;
-
-
+	justify-content: space-between;
+	
 }
+
+
 
 .chargementPhoto{
 	display: flex;
@@ -429,3 +430,31 @@ h3{
 	color: #306685;
 	font-size: 14px;
 }
+
+.formAjoutPhoto{
+	border-bottom: 1px solid #b3b3b3;
+	padding-bottom: 20px;
+
+}
+
+#titre, #categorie{
+	width: 420px;
+	height: 50px;
+	padding: 0px;
+	border: none;
+	font-family: 'Work Sans';
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin: 10px 0px 30px 0px;
+}
+
+.modalAjout input[type="submit"] {
+	width: 237px;
+	height: 36px;
+	border-radius: 60px;
+	background-color: #a7a7a7;
+	margin: 40px 91.5px;
+	border: none;
+	
+}
+
+
