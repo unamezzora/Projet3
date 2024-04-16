@@ -148,6 +148,8 @@ if (tokenInStorage !== null){
     //block noir "Mode Edition"
     const modeRedaction = document.querySelector(".redactionOut");
     modeRedaction.classList.replace("redactionOut", "redaction");
+    //lien Modifier
+    document.querySelector(".iconeBtnModal").style.display = "flex";
     //bouttons Filtres
     document.querySelector(".filtres").innerHTML = "";
     //suppression de token
