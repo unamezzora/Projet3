@@ -29,9 +29,6 @@ function genererProjets(projets){
         const iconSupprimerProjet = document.createElement("i");
         iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
        
-        //<i class="fa-solid fa-trash-can"></i>
-        
-
         //Rattachement des balises au portfolio
         sectionPortfolio.appendChild(projetElement);
         projetElement.appendChild(imageElement);
@@ -72,15 +69,25 @@ const fermerModal = function (e) {
     modal.querySelector(".btnfermerModal").removeEventListener("click", fermerModal);
     modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
     modal = null;
-    
+    document.querySelector(".modalAjout").style.display = "none";
+    document.querySelector(".modalMedias").style.display = "flex";
 }
 
 const stopPropagation = function (e) {
     e.stopPropagation()
 }
 
-const btnModifier = document.querySelector(".modifierProjets");
-btnModifier.addEventListener("click", ouvrirModal);
+//La fenetre modale "Galerie photo"
+document.querySelectorAll(".btnModal").forEach(a => {
+    a.addEventListener("click", ouvrirModal);
+})
+
+//La fenetre modal "Ajout photo"
+document.querySelector(".btnAjoutPhoto").addEventListener("click", function (e) {
+    document.querySelector(".modalAjout").style.display = "flex";
+    document.querySelector(".modalMedias").style.display = "none";
+    document.querySelector(".modalAjout").addEventListener("click", stopPropagation);
+})
 
 
 // gestion des boutons 

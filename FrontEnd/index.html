@@ -46,7 +46,7 @@
 		<div class="portfolioTitre">
 			<h2>Mes Projets</h2>
 			<i class="fa-regular fa-pen-to-square"></i>
-			<a href="#modalProjets" class="modifierProjets">modifier</a>
+			<a href="#modalProjets" class="btnModal">modifier</a>
 		</div>
 		
 		<div class="filtres">
@@ -86,8 +86,43 @@
 		<div class="galleryModal">
 
 		</div>
-		<button type="submit" class="btnAjoutPhoto">Ajouter une photo</button>
+		<!--<a href="#modalAjoutPhoto" class="btnModal">Ajouter une photo</a>-->
+		<button class="btnAjoutPhoto">Ajouter une photo</button>
 	</div>
+	<div class="modalAjout" style="display: none;">
+		<div class="bntsModalAjout">
+			<button class="btnfermerModal"><i class="fa-solid fa-arrow-left"></i></button>
+			<button class="btnfermerModal"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+		<h3 id="titleModalPhoto">Ajout photo</h3>
+		<div class="chargementPhoto">
+			<i class="fa-regular fa-image"></i>
+			<button class="btnChargementPhoto">+ Ajouter photo</button>
+			<p>jpg, png : 4mo max</p>
+		</div>
+		<form action="#" method="post">
+			<label for="titre">Titre</label><br>
+			<input type="text" name="titre" id="titre"><br>
+			<label for="categorie">Catégorie</label><br>
+			<select name="categorie" id="categorie">
+				<option value="1">Objets</option>
+				<option value="2">Appartements</option>
+				<option value="3">Hotels & restaurants</option>
+			</select><br>
+			<input type="submit" value="Valider">
+		</form>
+		<div class="">
+
+		</div>
+		
+		
+	</div>
+	
+	
+</aside>
+<aside id="modalAjoutPhoto" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titleModalPhoto" style="display: none;">
+	
+	
 	
 </aside>
 </body>

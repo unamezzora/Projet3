@@ -269,10 +269,10 @@ footer nav ul {
 	align-items: center;
 }
 
-/*la fenêtre modal*/
+/*la fenêtre modal "Galerie photo"*/
 h3{
 	font-size: 26px;
-	margin: 30px;
+	margin: 20px;
 	
 }
 
@@ -296,7 +296,6 @@ h3{
 	justify-content: space-between;
 	overflow: auto;
 	width: 630px;
-	/*max-width: calc(100vw-20px);*/
 	height: 688px;
 	border-radius: 10px;
 	background-color: #FFFFFF;
@@ -323,6 +322,25 @@ h3{
 	width: 100%;
 	height: 100%;
 }
+
+/*.modalMedias a{
+	display: inline-block;
+	text-decoration: none;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	width: 237px;
+	text-align: center;
+	border-radius: 60px ;
+	font-size: 14px;
+	border: 1px solid #1D6154;
+	margin: 30px 0px 20px 0px;
+	padding: 10px;
+	box-sizing: border-box;
+	
+}
+*/
 
 .btnAjoutPhoto{
 	font-family: 'Syne';
@@ -356,4 +374,58 @@ h3{
 	font-size: 11px;
 	color: #FFFFFF;
 	background-color: #000000;
+}
+
+/*la fenêtre modal "Ajout photo*/
+
+.modalAjout{
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	overflow: auto;
+	width: 630px;
+	height: 670px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	padding: 25px;
+}
+
+.bntsModalAjout{
+	display: flex;
+	flex-direction: row;
+
+
+}
+
+.chargementPhoto{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 420px;
+	height: 169px;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.chargementPhoto i{
+	font-size: 76px;
+	color: #B9C5CC;
+}
+
+.chargementPhoto p{
+	font-size: 10px;
+	color: #444444;
+}
+
+.btnChargementPhoto{
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	border: none;
+	color: #306685;
+	font-size: 14px;
 }
