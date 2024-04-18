@@ -26,6 +26,7 @@ function genererProjets(projets){
         const photoModal = document.createElement("img");
         photoModal.src = travaux.imageUrl;
         const btnSupprimerProjet = document.createElement("button");
+        btnSupprimerProjet.id = travaux.id;
         const iconSupprimerProjet = document.createElement("i");
         iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
        
@@ -39,6 +40,7 @@ function genererProjets(projets){
         btnSupprimerProjet.appendChild(iconSupprimerProjet);
 
     } 
+    suppressontravaux();
 }
 
 // Premier affichage de la page
@@ -159,5 +161,25 @@ if (tokenInStorage !== null){
   
 }    
 
+function suppressontravaux() {
+    const travauxElement = document.querySelectorAll(".galleryModal div button");
+
+    for (let i = 0; i < travauxElement.length; i++) {
+        travauxElement[i].addEventListener("click", async function (event){
+            const id = this.getAttribute('id');
+            await fetch(`http://localhost:5678/api/works/${id}`,{
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "authorization": `Bearer ` + localStorage.getItem("token"),    
+                },
+            });
+            
+            //.then(response);
+            
+
+        })
+    }
+}
 
         
