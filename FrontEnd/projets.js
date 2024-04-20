@@ -1,9 +1,13 @@
-// Récupération des projets depuis API
-const works = await fetch("http://localhost:5678/api/works");
-const projets = await works.json();
-
+// Récupération des categories depuis API
 const categories = await fetch("http://localhost:5678/api/categories");
 const btnFiltres = await categories.json();
+
+// Récupération des projets depuis API
+let projets = await fetch("http://localhost:5678/api/works")
+.then((projets) => projets.json())
+.then((projets) => {
+    genererProjets(projets);
+})
 
 //Creation des projets
 function genererProjets(projets){
@@ -40,11 +44,8 @@ function genererProjets(projets){
         btnSupprimerProjet.appendChild(iconSupprimerProjet);
 
     } 
-    suppressontravaux();
+    
 }
-
-// Premier affichage de la page
-genererProjets(projets);
 
 //Ouvrir/fermer la fenetre modal
 let modal = null
@@ -104,7 +105,21 @@ document.querySelector(".btnAjoutPhoto").addEventListener("click", function (e) 
 document.querySelector(".btnRetournModal").addEventListener("click", function() {
     document.querySelector(".modalAjout").style.display = "none";
     document.querySelector(".modalMedias").style.display = "flex";
-} )
+})
+
+//Ajout des categorie dans le formulaire de la fenetre modal "Ajout photo"
+for (let i = 0; i < btnFiltres.length; i++) {
+    const categorieOption = btnFiltres[i];
+    // Récupération de l'élément du DOM
+    const categorieSelect = document.querySelector("#categorie");
+    // Création d’une balise
+    const elementOption = document.createElement("option");
+    elementOption.innerText = categorieOption.name;
+    //Rattachement des balises
+    categorieSelect.appendChild(elementOption);
+
+}
+
 
 // gestion des boutons 
 
@@ -134,6 +149,7 @@ for (let i = 0; i < btnFiltres.length; i++) {
     btnElement.addEventListener("click", function() {
         const projetsFiltres = projets.filter(function (projet) {
             return projet.categoryId === i+1;
+
         })
         document.querySelector(".gallery").innerHTML ="";
         genererProjets(projetsFiltres);
@@ -159,27 +175,36 @@ if (tokenInStorage !== null){
         window.localStorage.removeItem("token");
     } )    
   
-}    
+}
 
+//Suppression de travaux existants
 function suppressontravaux() {
-    const travauxElement = document.querySelectorAll(".galleryModal div button");
+    const travauxElementBtn = document.querySelectorAll(".galleryModal div button");
 
-    for (let i = 0; i < travauxElement.length; i++) {
-        travauxElement[i].addEventListener("click", async function (event){
+    for (let i = 0; i < travauxElementBtn.length; i++) {
+        travauxElementBtn[i].addEventListener("click", async function (event){
             const id = this.getAttribute('id');
-            await fetch(`http://localhost:5678/api/works/${id}`,{
+
+            fetch(`http://localhost:5678/api/works/${id}`,{
                 method: "DELETE",
                 headers: {
                     "Accept": "application/json",
                     "authorization": `Bearer ` + localStorage.getItem("token"),    
                 },
-            });
-            
-            //.then(response);
-            
-
+            }).then((response) => {
+                if(response.ok) {
+                    document.querySelector(".gallery").innerHTML ="";
+                    document.querySelector(".galleryModal").innerHTML = "";
+                    fetch("http://localhost:5678/api/works")
+                    .then((projets) => projets.json())
+                    .then((projets) => {
+                        genererProjets(projets);    
+                       })
+                }
+            })
         })
     }
 }
 
-        
+suppressontravaux();        
+
