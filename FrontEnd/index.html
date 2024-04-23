@@ -98,30 +98,39 @@
 			<button class="btnfermerModal"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 		<h3 id="titleModalPhoto">Ajout photo</h3>
-		<form action="#" method="post">
+		<form method="post" class="formulaireAjoutProjet">
 			<div class="chargementPhoto">
-				<i class="fa-regular fa-image"></i>
-				<button type="button" class="btnChargementPhoto">+ Ajouter photo</button>
-				<p>jpg, png : 4mo max</p>
+				<i class="fa-regular fa-image" id="prevIcon"></i>
+				<img id="prevPhoto" src="#" alt="Photo à charger" >
+				<label for="photo" id="prevLabel">+ Ajouter photo</label>
+				<p id="prevP">jpg, png : 4mo max</p>
+				<input type="file" oninput="previewImage(this.files[0])" name="image" id="photo" accept="image/png, image/jpeg" class="btnChargementPhoto" >
+				<script>
+					function previewImage(file) {
+						const reader = new FileReader();
+						reader.onload = () => document.getElementById("prevPhoto").src = reader.result;
+						reader.readAsDataURL(file);
+						document.getElementById("prevPhoto").style.display = "flex";
+						document.getElementById("prevIcon").style.display = "none";
+						document.getElementById("prevLabel").style.display = "none";
+						document.getElementById("prevP").style.display = "none";
+					}
+				</script>
+				
+				
 			</div>
 			<div class="formAjoutPhoto">
 				<label for="titre">Titre</label><br>
-				<input type="text" name="titre" id="titre"><br>
+				<input type="text" name="title" id="titre"><br>
 				<label for="categorie">Catégorie</label><br>
-				<select name="categorie" id="categorie">
-					<!--<option value="1">Objets</option>
-					<option value="2">Appartements</option>
-					<option value="3">Hotels & restaurants</option>-->
+				<select name="category" id="categorie">
+				
 				</select><br>
 			</div>
 			
 			<input type="submit" value="Valider">
 		</form>
-		<div class="">
 
-		</div>
-		
-		
 	</div>
 	
 	

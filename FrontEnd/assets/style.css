@@ -407,28 +407,20 @@ h3{
 	height: 169px;
 	border-radius: 3px;
 	background-color: #E8F1F6;
-	box-sizing: border-box;
-	padding: 10px;
+	/*box-sizing: border-box;*/
+	/*padding: 10px;*/
 }
 
 .chargementPhoto i{
 	font-size: 76px;
 	color: #B9C5CC;
+	margin-top: 15px;
 }
 
 .chargementPhoto p{
 	font-size: 10px;
 	color: #444444;
-}
-
-.btnChargementPhoto{
-	width: 173px;
-	height: 36px;
-	border-radius: 50px;
-	background-color: #CBD6DC;
-	border: none;
-	color: #306685;
-	font-size: 14px;
+	margin-bottom: 15px;
 }
 
 .formAjoutPhoto{
@@ -447,6 +439,22 @@ h3{
 	margin: 10px 0px 30px 0px;
 }
 
+.chargementPhoto label{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 36px;
+	border-radius: 60px;
+	background-color: #CBD6DC;
+	border: none;
+	color: #306685;
+	font-weight: 600;
+}
+.chargementPhoto input{
+	display: none;
+}
+
 .modalAjout input[type="submit"] {
 	width: 237px;
 	height: 36px;
@@ -454,5 +462,11 @@ h3{
 	background-color: #a7a7a7;
 	margin: 40px 91.5px;
 	border: none;
+}
+
+#prevPhoto{
+	display: none;
+	height: 100%;
 	
+
 }

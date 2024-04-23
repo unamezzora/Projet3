@@ -5,9 +5,11 @@ const btnFiltres = await categories.json();
 // Récupération des projets depuis API
 let projets = await fetch("http://localhost:5678/api/works")
 .then((projets) => projets.json())
+/*
 .then((projets) => {
     genererProjets(projets);
 })
+*/ 
 
 //Creation des projets
 function genererProjets(projets){
@@ -46,6 +48,8 @@ function genererProjets(projets){
     } 
     
 }
+
+genererProjets(projets);
 
 //Ouvrir/fermer la fenetre modal
 let modal = null
@@ -114,6 +118,7 @@ for (let i = 0; i < btnFiltres.length; i++) {
     const categorieSelect = document.querySelector("#categorie");
     // Création d’une balise
     const elementOption = document.createElement("option");
+    elementOption.value = categorieOption.id
     elementOption.innerText = categorieOption.name;
     //Rattachement des balises
     categorieSelect.appendChild(elementOption);
@@ -208,3 +213,44 @@ function suppressontravaux() {
 
 suppressontravaux();        
 
+//Affichage d'une image avant envoi
+/*
+document.querySelector(".btnChargementPhoto").addEventListener("change", previewImage(this.files[0]))
+
+function previewImage(file) {
+    const reader = new FileReader();
+    reader.onload = () => document.getElementById("prevPhoto").src = reader.result;
+    reader.readAsDataURL(file);
+    document.getElementById("prevPhoto").style.display = "flex";
+}
+*/
+
+//Ajout d'un projet
+const form = document.querySelector(".formulaireAjoutProjet");
+form.addEventListener("submit", ajoutProjet);
+
+async function ajoutProjet(event) {
+    event.preventDefault();
+    const formProjet = new FormData(form);
+
+    await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            "authorization": `Bearer ` + localStorage.getItem("token"),
+        },
+        body: formProjet
+    }).then((response) => {
+        if(response.ok) {
+            document.querySelector(".gallery").innerHTML ="";
+            document.querySelector(".galleryModal").innerHTML = "";
+            fetch("http://localhost:5678/api/works")
+                .then((projets) => projets.json())
+                .then((projets) => {
+                    genererProjets(projets);    
+            })
+        }
+    })
+        
+    .then(console.log)
+    .catch(console.error); 
+}
