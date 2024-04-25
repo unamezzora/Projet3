@@ -36,6 +36,13 @@ let modal = null
 
 const ouvrirModal = function (e) {
     e.preventDefault();
+    fetch("http://localhost:5678/api/works")
+        .then((projets) => projets.json())
+        .then((projets) => {
+            genererProjetsModal(projets);
+            suppressontravaux();
+        });
+     
     const target = document.querySelector(e.target.getAttribute("href"));
     target.style.display = null;
     target.removeAttribute("aria-hidden");
@@ -54,6 +61,7 @@ const ouvrirModal = function (e) {
 const fermerModal = function (e) {
     if (modal === null) return;
     e.preventDefault();
+    document.querySelector(".galleryModal").innerHTML = "";
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
@@ -117,7 +125,7 @@ function genererProjetsModal(projets){
     
 }
 
-genererProjetsModal(projets);
+
 
 //Ajout des categorie dans le formulaire de la fenetre modal "Ajout photo"
 for (let i = 0; i < btnFiltres.length; i++) {
@@ -196,8 +204,16 @@ function suppressontravaux() {
     for (let i = 0; i < travauxElementBtn.length; i++) {
         travauxElementBtn[i].addEventListener("click", async function (event){
             const id = this.getAttribute('id');
+            
+            travauxElementBtn[i].innerHTML = "";
 
-            fetch(`http://localhost:5678/api/works/${id}`,{
+
+
+            console.log(id);
+            console.log(travauxElementBtn[i]);
+            console.log(travauxElementBtn);
+
+            await fetch(`http://localhost:5678/api/works/${id}`,{
                 method: "DELETE",
                 headers: {
                     "Accept": "application/json",
@@ -211,7 +227,9 @@ function suppressontravaux() {
                     .then((projets) => projets.json())
                     .then((projets) => {
                         genererProjets(projets);
-                        genererProjetsModal(projets);    
+                        genererProjetsModal(projets);
+                        console.log(travauxElementBtn);
+                        console.log(projets);    
                        })
                 }
             })
@@ -219,7 +237,7 @@ function suppressontravaux() {
     }
 }
 
-suppressontravaux();        
+//suppressontravaux();        
 
 //Affichage d'une image avant envoi
 function previewImage() {
@@ -265,6 +283,8 @@ async function ajoutProjet(event) {
                     document.getElementById("prevIcon").style.display = "flex";
 	                document.getElementById("prevLabel").style.display = "flex";
 	                document.getElementById("prevP").style.display = "flex";
+                    console.log(projets);
+                    console.log(document.querySelectorAll(".galleryModal div button"));
             })
         }else{
             alert(`Erreur ${response.status}" Le formulaire n'est pas correctement rempli"`);
