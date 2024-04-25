@@ -5,11 +5,6 @@ const btnFiltres = await categories.json();
 // Récupération des projets depuis API
 let projets = await fetch("http://localhost:5678/api/works")
 .then((projets) => projets.json())
-/*
-.then((projets) => {
-    genererProjets(projets);
-})
-*/ 
 
 //Creation des projets
 function genererProjets(projets){
@@ -25,26 +20,11 @@ function genererProjets(projets){
         imageElement.alt = travaux.title;
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = travaux.title;
-
-        //Creation des photos de la fenetre modal
-        const sectionGalleryModal = document.querySelector(".galleryModal");
-        const projetModal = document.createElement("div");
-        const photoModal = document.createElement("img");
-        photoModal.src = travaux.imageUrl;
-        const btnSupprimerProjet = document.createElement("button");
-        btnSupprimerProjet.id = travaux.id;
-        const iconSupprimerProjet = document.createElement("i");
-        iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
        
         //Rattachement des balises au portfolio
         sectionPortfolio.appendChild(projetElement);
         projetElement.appendChild(imageElement);
         projetElement.appendChild(titleElement);
-        sectionGalleryModal.appendChild(projetModal);
-        projetModal.appendChild(photoModal);
-        projetModal.appendChild(btnSupprimerProjet);
-        btnSupprimerProjet.appendChild(iconSupprimerProjet);
-
     } 
     
 }
@@ -112,6 +92,33 @@ document.querySelector(".btnRetournModal").addEventListener("click", function() 
     document.querySelector(".modalMedias").style.display = "flex";
 })
 
+//Creation des projets de la fenetre modal
+function genererProjetsModal(projets){
+    for (let i = 0; i < projets.length; i++) {
+        const travaux = projets[i];
+
+        //Creation des photos de la fenetre modal
+        const sectionGalleryModal = document.querySelector(".galleryModal");
+        const projetModal = document.createElement("div");
+        const photoModal = document.createElement("img");
+        photoModal.src = travaux.imageUrl;
+        const btnSupprimerProjet = document.createElement("button");
+        btnSupprimerProjet.id = travaux.id;
+        const iconSupprimerProjet = document.createElement("i");
+        iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
+       
+        //Rattachement des balises au modal
+        sectionGalleryModal.appendChild(projetModal);
+        projetModal.appendChild(photoModal);
+        projetModal.appendChild(btnSupprimerProjet);
+        btnSupprimerProjet.appendChild(iconSupprimerProjet);
+
+    } 
+    
+}
+
+genererProjetsModal(projets);
+
 //Ajout des categorie dans le formulaire de la fenetre modal "Ajout photo"
 for (let i = 0; i < btnFiltres.length; i++) {
     const categorieOption = btnFiltres[i];
@@ -125,7 +132,6 @@ for (let i = 0; i < btnFiltres.length; i++) {
     categorieSelect.appendChild(elementOption);
 
 }
-
 
 // gestion des boutons 
 
@@ -204,7 +210,8 @@ function suppressontravaux() {
                     fetch("http://localhost:5678/api/works")
                     .then((projets) => projets.json())
                     .then((projets) => {
-                        genererProjets(projets);    
+                        genererProjets(projets);
+                        genererProjetsModal(projets);    
                        })
                 }
             })
@@ -251,15 +258,13 @@ async function ajoutProjet(event) {
                 .then((projets) => projets.json())
                 .then((projets) => {
                     genererProjets(projets);
+                    genererProjetsModal(projets); 
                     alert(`Le nouveau projet est ajouté!`);
                     document.getElementById("titre").value ="";
                     document.getElementById("prevPhoto").style.display = "none";
                     document.getElementById("prevIcon").style.display = "flex";
 	                document.getElementById("prevLabel").style.display = "flex";
 	                document.getElementById("prevP").style.display = "flex";
-
-
-                      
             })
         }else{
             alert(`Erreur ${response.status}" Le formulaire n'est pas correctement rempli"`);
@@ -276,8 +281,6 @@ function actBtnValider() {
     if (titreProjet && photoProjet) {
         document.querySelector(".btnValiderAjoutPhoto").disabled = false;
         document.querySelector(".btnValiderAjoutPhoto").style.background = "#1D6154";
-        console.log(titreProjet);
-        console.log(photoProjet);
     }else{
         document.querySelector(".btnValiderAjoutPhoto").disabled = true;
         document.querySelector(".btnValiderAjoutPhoto").style.background = "#A7A7A7";
