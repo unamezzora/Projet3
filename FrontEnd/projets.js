@@ -104,6 +104,7 @@ document.querySelector(".btnAjoutPhoto").addEventListener("click", function (e) 
     document.querySelector(".modalAjout").style.display = "flex";
     document.querySelector(".modalMedias").style.display = "none";
     document.querySelector(".modalAjout").addEventListener("click", stopPropagation);
+    //document.querySelector(".btnValiderAjoutPhoto").addEventListener("click", fermerModal);
 })
 
 document.querySelector(".btnRetournModal").addEventListener("click", function() {
@@ -214,16 +215,19 @@ function suppressontravaux() {
 suppressontravaux();        
 
 //Affichage d'une image avant envoi
-/*
-document.querySelector(".btnChargementPhoto").addEventListener("change", previewImage(this.files[0]))
-
-function previewImage(file) {
+function previewImage() {
+    const file = document.querySelector("input[type=file]").files[0];
     const reader = new FileReader();
     reader.onload = () => document.getElementById("prevPhoto").src = reader.result;
     reader.readAsDataURL(file);
     document.getElementById("prevPhoto").style.display = "flex";
+    document.getElementById("prevIcon").style.display = "none";
+	document.getElementById("prevLabel").style.display = "none";
+	document.getElementById("prevP").style.display = "none";
 }
-*/
+document.querySelector(".btnChargementPhoto").addEventListener("change", previewImage)
+
+
 
 //Ajout d'un projet
 const form = document.querySelector(".formulaireAjoutProjet");
@@ -246,11 +250,40 @@ async function ajoutProjet(event) {
             fetch("http://localhost:5678/api/works")
                 .then((projets) => projets.json())
                 .then((projets) => {
-                    genererProjets(projets);    
+                    genererProjets(projets);
+                    alert(`Le nouveau projet est ajouté!`);
+                    document.getElementById("titre").value ="";
+                    document.getElementById("prevPhoto").style.display = "none";
+                    document.getElementById("prevIcon").style.display = "flex";
+	                document.getElementById("prevLabel").style.display = "flex";
+	                document.getElementById("prevP").style.display = "flex";
+
+
+                      
             })
+        }else{
+            alert(`Erreur ${response.status}" Le formulaire n'est pas correctement rempli"`);
         }
     })
-        
-    .then(console.log)
-    .catch(console.error); 
+    
 }
+
+//Activation du bouton "Valider"
+
+function actBtnValider() {
+    const titreProjet = document.getElementById("titre").value;
+    const photoProjet = document.getElementById("photo").value;
+    if (titreProjet && photoProjet) {
+        document.querySelector(".btnValiderAjoutPhoto").disabled = false;
+        document.querySelector(".btnValiderAjoutPhoto").style.background = "#1D6154";
+        console.log(titreProjet);
+        console.log(photoProjet);
+    }else{
+        document.querySelector(".btnValiderAjoutPhoto").disabled = true;
+        document.querySelector(".btnValiderAjoutPhoto").style.background = "#A7A7A7";
+    }
+
+}
+
+document.getElementById("titre").addEventListener("change", actBtnValider);
+document.getElementById("photo").addEventListener("change", actBtnValider);

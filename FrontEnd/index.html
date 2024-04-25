@@ -104,7 +104,12 @@
 				<img id="prevPhoto" src="#" alt="Photo à charger" >
 				<label for="photo" id="prevLabel">+ Ajouter photo</label>
 				<p id="prevP">jpg, png : 4mo max</p>
-				<input type="file" oninput="previewImage(this.files[0])" name="image" id="photo" accept="image/png, image/jpeg" class="btnChargementPhoto" >
+				<input type="file"  name="image"  id="photo" accept="image/png, image/jpeg" class="btnChargementPhoto" >
+
+
+<!--
+oninput="previewImage(this.files[0])"
+
 				<script>
 					function previewImage(file) {
 						const reader = new FileReader();
@@ -117,9 +122,13 @@
 					}
 				</script>
 				
+
+-->
+
 				
 			</div>
 			<div class="formAjoutPhoto">
+				
 				<label for="titre">Titre</label><br>
 				<input type="text" name="title" id="titre"><br>
 				<label for="categorie">Catégorie</label><br>
@@ -128,7 +137,7 @@
 				</select><br>
 			</div>
 			
-			<input type="submit" value="Valider">
+			<input type="submit" value="Valider" class="btnValiderAjoutPhoto">
 		</form>
 
 	</div>
