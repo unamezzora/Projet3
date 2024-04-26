@@ -188,6 +188,7 @@ if (tokenInStorage !== null){
     modeRedaction.classList.replace("redactionOut", "redaction");
     //lien Modifier
     document.querySelector(".iconeBtnModal").style.display = "flex";
+    document.querySelector(".portfolioTitre").style.padding = "5em 0em 3em 0em";
     //bouttons Filtres
     document.querySelector(".filtres").innerHTML = "";
     //suppression de token
@@ -204,8 +205,7 @@ function suppressontravaux() {
     for (let i = 0; i < travauxElementBtn.length; i++) {
         travauxElementBtn[i].addEventListener("click", async function (event){
             const id = this.getAttribute('id');
-            
-            travauxElementBtn[i].innerHTML = "";
+   
 
 
 
