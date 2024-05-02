@@ -31,8 +31,7 @@ function ajoutListenerLogin() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "accept": "application/json",
-                //"authorization": `bearer ${token}`,    
+                "accept": "application/json", 
             },
             body: chargeUtile,
         }).then((response) => {

@@ -41,21 +41,25 @@ const ouvrirModal = function (e) {
         .then((projets) => {
             genererProjetsModal(projets);
             suppressontravaux();
+
         });
      
-    const target = document.querySelector(e.target.getAttribute("href"));
-    target.style.display = null;
-    target.removeAttribute("aria-hidden");
-    target.setAttribute("aria-modal", "true");
-    modal = target;
+    modal = document.querySelector(e.target.getAttribute("href"));
+    modal.style.display = null;
+    modal.removeAttribute("aria-hidden");
+    modal.setAttribute("aria-modal", "true");
+    
     modal.addEventListener("click", fermerModal);
+   
+ 
+   
     modal.querySelectorAll(".btnfermerModal").forEach(a => {
         a.addEventListener("click", fermerModal);
     });
     modal.querySelectorAll(".modalStop").forEach(a => {
         a.addEventListener("click", stopPropagation);
     });
-    //modal.querySelector(".modalStop").addEventListener("click", stopPropagation);
+    
 }
 
 const fermerModal = function (e) {
@@ -72,7 +76,6 @@ const fermerModal = function (e) {
     modal.querySelectorAll(".modalStop").forEach(a => {
         a.removeEventListener("click", stopPropagation);
     });
-    //modal.querySelector(".modalStop").removeEventListener("click", stopPropagation);
     modal = null;
     document.querySelector(".modalAjout").style.display = "none";
     document.querySelector(".modalMedias").style.display = "flex";
@@ -112,6 +115,7 @@ function genererProjetsModal(projets){
         photoModal.src = travaux.imageUrl;
         const btnSupprimerProjet = document.createElement("button");
         btnSupprimerProjet.id = travaux.id;
+        btnSupprimerProjet.classList = "urna";
         const iconSupprimerProjet = document.createElement("i");
         iconSupprimerProjet.setAttribute("class", "fa-solid fa-trash-can");
        
@@ -199,20 +203,47 @@ if (tokenInStorage !== null){
 }
 
 //Suppression de travaux existants
+
+/*
+const supprimerProjet = async function  (event){
+    event.preventDefault();
+    const id = this.getAttribute("id");
+    await fetch("http://localhost:5678/api/works/${id}"), {
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "authorization": `Bearer ` + localStorage.getItem("token"),
+        },
+    }.then((response) => {
+        if(response.ok) {
+            alert(`Le projet est suprimé!`);
+            document.querySelector(".gallery").innerHTML ="";
+            document.querySelector(".galleryModal").innerHTML = "";
+            fetch("http://localhost:5678/api/works")
+            .then((projets) => projets.json())
+            .then((projets) => {
+                genererProjets(projets);
+                genererProjetsModal(projets);
+                console.log(travauxElementBtn);
+                console.log(projets);    
+               })
+            }
+        })
+}
+
+document.querySelectorAll(".urna").forEach(a => {
+    a.addEventListener("click", console.log(urna));
+})
+
+*/
+
 function suppressontravaux() {
-    const travauxElementBtn = document.querySelectorAll(".galleryModal div button");
-
-    for (let i = 0; i < travauxElementBtn.length; i++) {
-        travauxElementBtn[i].addEventListener("click", async function (event){
-            const id = this.getAttribute('id');
-   
-
-
-
-            console.log(id);
-            console.log(travauxElementBtn[i]);
-            console.log(travauxElementBtn);
-
+    const travauxElementBtn = document.querySelectorAll(".urna");
+  
+    travauxElementBtn.forEach(a => {
+        a.addEventListener("click", async function (event){
+            event.preventDefault();
+            let id = this.getAttribute('id');
             await fetch(`http://localhost:5678/api/works/${id}`,{
                 method: "DELETE",
                 headers: {
@@ -221,6 +252,7 @@ function suppressontravaux() {
                 },
             }).then((response) => {
                 if(response.ok) {
+                    alert(`Le projet est suprimé!`);
                     document.querySelector(".gallery").innerHTML ="";
                     document.querySelector(".galleryModal").innerHTML = "";
                     fetch("http://localhost:5678/api/works")
@@ -228,16 +260,21 @@ function suppressontravaux() {
                     .then((projets) => {
                         genererProjets(projets);
                         genererProjetsModal(projets);
+                        suppressontravaux();
                         console.log(travauxElementBtn);
                         console.log(projets);    
                        })
                 }
             })
+
+
         })
-    }
+    })
 }
 
-//suppressontravaux();        
+            
+
+  
 
 //Affichage d'une image avant envoi
 function previewImage() {
@@ -276,7 +313,8 @@ async function ajoutProjet(event) {
                 .then((projets) => projets.json())
                 .then((projets) => {
                     genererProjets(projets);
-                    genererProjetsModal(projets); 
+                    genererProjetsModal(projets);
+                    suppressontravaux(); 
                     alert(`Le nouveau projet est ajouté!`);
                     document.getElementById("titre").value ="";
                     document.getElementById("prevPhoto").style.display = "none";

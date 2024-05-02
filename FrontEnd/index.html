@@ -13,6 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="projets.js"></script>
+	
 </head>
 <body>
 	<div class="redactionOut">
@@ -105,27 +106,7 @@
 				<label for="photo" id="prevLabel">+ Ajouter photo</label>
 				<p id="prevP">jpg, png : 4mo max</p>
 				<input type="file"  name="image"  id="photo" accept="image/png, image/jpeg" class="btnChargementPhoto" >
-
-
-<!--
-oninput="previewImage(this.files[0])"
-
-				<script>
-					function previewImage(file) {
-						const reader = new FileReader();
-						reader.onload = () => document.getElementById("prevPhoto").src = reader.result;
-						reader.readAsDataURL(file);
-						document.getElementById("prevPhoto").style.display = "flex";
-						document.getElementById("prevIcon").style.display = "none";
-						document.getElementById("prevLabel").style.display = "none";
-						document.getElementById("prevP").style.display = "none";
-					}
-				</script>
-				
-
--->
-
-				
+		
 			</div>
 			<div class="formAjoutPhoto">
 				
